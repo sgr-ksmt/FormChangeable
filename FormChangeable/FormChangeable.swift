@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol FormChangeable {
+public protocol FormChangeable {
     var form: UIResponder { get }
     var nextForm: FormChangeable? { get set }
     var previousForm: FormChangeable? { get set }
@@ -17,7 +17,7 @@ protocol FormChangeable {
     var returnKeyType: UIReturnKeyType { get set }
 }
 
-extension FormChangeable {
+public extension FormChangeable {
     func changeToNextForm(){
         form.resignFirstResponder()
         nextForm?.form.becomeFirstResponder()
@@ -30,7 +30,7 @@ extension FormChangeable {
     
 }
 
-func ==(lhs: FormChangeable, rhs: FormChangeable) -> Bool {
+public func ==(lhs: FormChangeable, rhs: FormChangeable) -> Bool {
     return lhs.form == rhs.form
 }
 
@@ -46,7 +46,7 @@ private func setStoredObject(object: AnyObject, _ key: UnsafePointer<Void>, _ va
     objc_setAssociatedObject(object, key, value as? AnyObject, .OBJC_ASSOCIATION_ASSIGN)
 }
 
-extension FormChangeable where Self: UITextField {
+public extension FormChangeable where Self: UITextField {
     var form: UIResponder {
         return self as UIResponder
     }
@@ -72,7 +72,7 @@ extension FormChangeable where Self: UITextField {
     }
 }
 
-extension FormChangeable where Self: UITextView {
+public extension FormChangeable where Self: UITextView {
     var form: UIResponder {
         return self as UIResponder
     }
@@ -101,14 +101,12 @@ extension FormChangeable where Self: UITextView {
 extension UITextField: FormChangeable {}
 extension UITextView: FormChangeable {}
 
-extension CollectionType where Generator.Element == FormChangeable {
+public extension CollectionType where Generator.Element == FormChangeable {
     func registerNextForm() {
         var pre: FormChangeable?
         forEach {
-            print(pre)
             pre?.nextForm = $0
             pre = $0
-            print(pre)
         }
     }
     
