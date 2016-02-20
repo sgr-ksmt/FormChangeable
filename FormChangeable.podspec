@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = "FormChangeable"
-  s.version  = "1.0.0"
+  s.version  = "1.0.1"
   s.summary  = "Easy to move from UITextField/UITextView to next UITextField/UITextView written in Swift."
   s.homepage = "https://github.com/sgr-ksmt/#{s.name}"
   s.author = {
